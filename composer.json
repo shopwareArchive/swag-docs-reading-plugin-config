@@ -1,0 +1,31 @@
+{
+    "name": "swag/reading-plugin-config",
+    "description": "Plugin, which shows how to read the plugin configuration",
+    "version": "v1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shopware AG"
+        }
+    ],
+    "require": {
+        "shopware/platform": "dev-master"
+    },
+    "extra": {
+        "shopware-plugin-class": "Swag\\ReadingPluginConfig\\ReadingPluginConfig",
+        "label": {
+            "de-DE": "Label für das Plugin ReadingPluginConfig",
+            "en-GB": "Label for the plugin ReadingPluginConfig"
+        },
+        "description": {
+            "de-DE": "Beschreibung für das Plugin ReadingPluginConfig",
+            "en-GB": "Description for the plugin ReadingPluginConfig"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Swag\\ReadingPluginConfig\\": "src/"
+        }
+    }
+}
