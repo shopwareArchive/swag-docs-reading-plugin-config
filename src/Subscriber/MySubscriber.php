@@ -2,13 +2,14 @@
 
 namespace Swag\ReadingPluginConfig\Subscriber;
 
-use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Shopware\Storefront\Page\Product\ProductPageLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Shopware\Core\Content\Product\ProductEvents;
 
 class MySubscriber implements EventSubscriberInterface
 {
+    public const CONFIG_EXAMPLE_EXTENSION_NAME = 'exampleExtensionName';
+
     /**
      * @var SystemConfigService
      */
@@ -22,12 +23,20 @@ class MySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ProductEvents::PRODUCT_LOADED_EVENT => 'onProductsLoaded'
+            ProductPageLoadedEvent::class => 'onProductPageLoaded',
         ];
     }
 
-    public function onProductsLoaded(EntityLoadedEvent $event): void
+    public function onProductPageLoaded(ProductPageLoadedEvent $event): void
     {
         $exampleConfig = $this->systemConfigService->get('ReadingPluginConfig.config.example');
+
+        $config = new ConfigStruct();
+        $config->setExample($exampleConfig);
+
+       $event->getPage()->addExtension(
+            self::CONFIG_EXAMPLE_EXTENSION_NAME,
+            $config
+        );
     }
 }
